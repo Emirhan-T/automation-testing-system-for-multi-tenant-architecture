@@ -55,7 +55,136 @@ tenant çözümlemesi için kullanılır.
 - `server/api/calculate-mortgage.post.ts` — capability kontrolü sadece
   UI'da değil, API seviyesinde de yapılır (çift savunma katmanı).
 
-## Test Katmanlarını Doğrulama (manuel örnekler)
+## data-testid Sözleşmesi
+
+Tüm tenant'larda ve temalarda ortak olan `data-testid` listesi:
+
+| data-testid | Element | Açıklama |
+|---|---|---|
+| `tenant-root` | `<div>` | Layout root — tema class ve `data-tenant-id` taşır |
+| `site-logo` | `<a>` | Logo / ana sayfa linki |
+| `search-form` | `<form>` | Şehir arama formu |
+| `search-input` | `<input>` | Şehir arama text alanı |
+| `search-submit` | `<button>` | Arama butonu |
+| `search-results` | `<section>` | Mülk listesi container'ı |
+| `search-results-item` | `<a>` | Tek mülk kartı |
+| `property-card-title` | `<h3>` | Karttaki mülk başlığı |
+| `property-card-price` | `<p>` | Karttaki mülk fiyatı |
+| `empty-state` | `<p>` | Sonuç bulunamadı mesajı |
+| `price-filter` | `<div>` | Fiyat filtresi container |
+| `filter-price-max` | `<input>` | Maks fiyat input |
+| `filter-apply` | `<button>` | Filtrele butonu |
+| `property-detail-page` | `<div>` | Detail sayfası container |
+| `property-title` | `<h1>` | Mülk başlığı |
+| `property-price` | `<p>` | Mülk fiyatı |
+| `not-found` | `<p>` | 404 / bulunamadı mesajı |
+| `mortgage-calculator` | `<section>` | İpotek hesaplayıcı *(capability-gated)* |
+| `calc-deposit` | `<input>` | Peşinat input |
+| `calc-submit` | `<button>` | Hesapla butonu |
+| `calc-result` | `<p>` | Hesaplama sonucu |
+| `video-tour` | `<section>` | Video tur bölümü *(capability-gated)* |
+| `video-player` | `<div>` | Video player alanı |
+| `map-section` | `<section>` | Harita bölümü *(capability-gated)* |
+| `map-toggle` | `<button>` | Haritayı göster/gizle butonu |
+| `map-container` | `<div>` | Harita içerik alanı |
+
+## Test Suite — 8 Faz
+
+### Faz 1 — Capability Matrix Doğrulama (Sunucusuz)
+
+```bash
+npx tsx tests/config/verify-phase1.ts
+```
+
+Tenant registry, route haritası ve capability × route matrisini konsola basar.
+
+### Faz 2 — API Şema Doğrulama (Sunucu gerekli)
+
+```bash
+# Önce sunucuyu başlat:
+npm run dev
+
+# Ayrı terminalde:
+npx tsx tests/config/verify-phase2.ts
+```
+
+Her tenant × her endpoint kombinasyonu için HTTP çağrısı yapar ve Zod şemasıyla doğrular.
+
+### Faz 3 — Smoke Tests
+
+```bash
+npx playwright test tests/smoke/
+```
+
+Her tenant'ta core sayfaların yüklendiğini, tema class'ının doğru uygulandığını
+ve temel UI elementlerinin görünür olduğunu doğrular.
+**Kapsam:** 4 tenant × 8 test = ~32 assertion
+
+### Faz 4 — Behaviour Tests
+
+```bash
+npx playwright test tests/behaviour/
+```
+
+Kullanıcı davranışlarını simüle eder: arama, filtreleme, navigasyon, detail içerik.
+**Kapsam:** 4 tenant × 7 test = ~28 assertion
+
+### Faz 5 — Hydration Tests
+
+```bash
+npx playwright test tests/hydration/
+```
+
+SSR → Client hydration geçişinin hatasız olduğunu, console'da mismatch
+uyarısı bulunmadığını ve data-testid'lerin korunduğunu doğrular.
+**Kapsam:** 4 tenant × 5 test = ~20 assertion
+
+### Faz 6 — Visual / Geometric Tests
+
+```bash
+# İlk çalıştırmada baseline snapshot oluştur:
+npx playwright test tests/visual/ --update-snapshots
+
+# Sonraki çalıştırmalarda karşılaştır:
+npx playwright test tests/visual/
+```
+
+Pixel-level screenshot karşılaştırması + geometrik kontroller (boyutlar, CSS token'ları).
+**Kapsam:** 4 tenant × 6 test = ~24 assertion
+
+### Faz 7 — Capability Tests
+
+```bash
+npx playwright test tests/capability/
+```
+
+Her capability (mortgage, map, video) için hem varlık (PRESENCE) hem yokluk
+(ABSENCE) testleri. Capability matrix güncellenince testler otomatik uyum sağlar.
+**Kapsam:** ~30 assertion (matrise göre dinamik)
+
+### Faz 8 — Contract Tests
+
+```bash
+npx playwright test tests/contract/
+```
+
+Tüm API endpoint'lerinin Zod şemasına uyduğunu, capability-gating'in API
+seviyesinde 403 döndürdüğünü ve cross-tenant şema tutarlılığını doğrular.
+**Kapsam:** 4 tenant × ~8 API çağrısı = ~32 assertion
+
+### Tüm Playwright Fazlarını Birden Çalıştır
+
+```bash
+npx playwright test
+```
+
+### HTML Raporu Görüntüle
+
+```bash
+npx playwright show-report
+```
+
+## Manuel Doğrulama Örnekleri
 
 ```bash
 # Farklı tenant'larda theme class'ının değiştiğini doğrula
@@ -69,7 +198,3 @@ curl -X POST -H "x-tenant: harrisons" -H "Content-Type: application/json" \
 # API contract'ın tenant fark etmeksizin aynı şemayı döndüğünü doğrula
 curl -s -H "x-tenant: bydesign" http://localhost:3000/api/search
 ```
-
-Bir sonraki adım: bu proje üzerine gerçek bir Playwright test suite'i
-(Smoke, Behaviour, Hydration, Görsel/Geometrik, Capability, Contract
-katmanları) yazılarak önerilen strateji uçtan uca kanıtlanır.

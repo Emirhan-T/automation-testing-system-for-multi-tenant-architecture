@@ -8,7 +8,16 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke/",
+    "test:behaviour": "playwright test tests/behaviour/",
+    "test:hydration": "playwright test tests/hydration/",
+    "test:visual": "playwright test tests/visual/",
+    "test:visual:update": "playwright test tests/visual/ --update-snapshots",
+    "test:capability": "playwright test tests/capability/",
+    "test:contract": "playwright test tests/contract/",
+    "verify:phase1": "tsx tests/config/verify-phase1.ts",
+    "verify:phase2": "tsx tests/config/verify-phase2.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.0",

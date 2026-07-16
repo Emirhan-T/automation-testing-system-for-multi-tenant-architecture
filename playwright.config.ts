@@ -10,8 +10,16 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
   testDir: './tests',
 
+  // Sadece .spec.ts uzantılı dosyaları test olarak al
+  testMatch: '**/*.spec.ts',
+
+  // tests/config/ altındaki verify-*.ts scriptleri Playwright test değil,
+  // npx tsx ile çalıştırılan bağımsız doğrulama scriptleridir.
+  testIgnore: ['**/config/**'],
+
   // Her test dosyası paralel çalışır; bir dosya içindeki testler sıralı
   fullyParallel: true,
+
 
   // CI ortamında yanlışlıkla `.only` bırakılmasını engelle
   forbidOnly: !!process.env.CI,

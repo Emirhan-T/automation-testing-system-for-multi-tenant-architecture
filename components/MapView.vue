@@ -3,7 +3,7 @@ const visible = ref(false)
 </script>
 
 <template>
-  <section class="map-section">
+  <section class="map-section" data-testid="map-section">
     <button class="cta-button" data-testid="map-toggle" @click="visible = !visible">
       {{ visible ? 'Haritayı Gizle' : 'Haritada Göster' }}
     </button>
