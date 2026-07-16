@@ -1,0 +1,53 @@
+.theme3 {
+  --color-primary: #18181B;
+  --color-secondary: #FDF4FF;
+  --color-accent: #DB2777;
+  --color-bg: #FDF4FF;
+  --color-surface: #FFFFFF;
+  --color-text: #18181B;
+  --color-text-muted: #71717A;
+  --radius: 28px;
+  --font-display: 'Impact', sans-serif;
+  --font-body: system-ui, sans-serif;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  font-family: var(--font-body);
+}
+
+.theme3 .site-header {
+  background: var(--color-primary);
+  padding: 28px 32px;
+}
+
+.theme3 .logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-accent);
+  letter-spacing: -1px;
+}
+
+.theme3 .results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.theme3 .property-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 3px solid var(--color-primary);
+  overflow: hidden;
+  box-shadow: 8px 8px 0 var(--color-accent);
+}
+
+.theme3 .cta-button {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 28px;
+  font-weight: 800;
+  cursor: pointer;
+}

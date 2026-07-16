@@ -1,0 +1,57 @@
+.theme4 {
+  --color-primary: #14532D;
+  --color-secondary: #FEFCE8;
+  --color-accent: #CA8A04;
+  --color-bg: #FEFCE8;
+  --color-surface: #FFFFFF;
+  --color-text: #1C1917;
+  --color-text-muted: #57534E;
+  --radius: 2px;
+  --font-display: 'Times New Roman', serif;
+  --font-body: Georgia, serif;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  font-family: var(--font-body);
+}
+
+.theme4 .site-header {
+  background: var(--color-primary);
+  padding: 32px;
+  border-bottom: 4px solid var(--color-accent);
+  text-align: center;
+}
+
+.theme4 .logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--color-secondary);
+  font-style: italic;
+}
+
+.theme4 .results-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.theme4 .property-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 4px;
+}
+
+.theme4 .cta-button {
+  background: var(--color-accent);
+  color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  cursor: pointer;
+}
