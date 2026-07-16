@@ -1,0 +1,32 @@
+# Nuxt
+.nuxt
+.output
+.nitro
+.cache
+
+# Node
+node_modules
+
+# Build
+dist
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Playwright
+playwright-report
+test-results
+
+# Env
+.env
+.env.*
+!.env.example
