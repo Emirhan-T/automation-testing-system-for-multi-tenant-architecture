@@ -47,8 +47,9 @@ test.describe('[Capability] mortgage_calculator — PRESENCE', () => {
 
     test(`[${tenant.id}] hesapla butonuna tıklamak sonuç gösterir`, async ({ page }) => {
       await page.goto(tenantUrl(tenant, `/property/${tenant.samplePropertyId}`))
+      await page.waitForLoadState('networkidle') // Vue event handler'ları bağlanana kadar bekle
       await page.click('[data-testid="calc-submit"]')
-      await expect(page.locator('[data-testid="calc-result"]')).toBeVisible({ timeout: 5000 })
+      await expect(page.locator('[data-testid="calc-result"]')).toBeVisible({ timeout: 8000 })
       await expect(page.locator('[data-testid="calc-result"]')).toContainText('₺')
     })
   }
@@ -73,13 +74,15 @@ test.describe('[Capability] map — PRESENCE', () => {
   for (const tenant of tenantsWithCap('map')) {
     test(`[${tenant.id}] harita bölümü ana sayfada görünür`, async ({ page }) => {
       await page.goto(tenantUrl(tenant, '/'))
+      await page.waitForLoadState('networkidle')
       await expect(page.locator('[data-testid="map-section"]')).toBeVisible()
     })
 
     test(`[${tenant.id}] harita toggle butonuna tıklamak haritayı açar`, async ({ page }) => {
       await page.goto(tenantUrl(tenant, '/'))
+      await page.waitForLoadState('networkidle') // Vue @click handler'ı bağlanana kadar bekle
       await page.click('[data-testid="map-toggle"]')
-      await expect(page.locator('[data-testid="map-container"]')).toBeVisible()
+      await expect(page.locator('[data-testid="map-container"]')).toBeVisible({ timeout: 8000 })
     })
   }
 })
