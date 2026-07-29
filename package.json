@@ -14,6 +14,7 @@
     "test:hydration": "playwright test tests/hydration/",
     "test:visual": "playwright test tests/visual/",
     "test:visual:update": "playwright test tests/visual/ --update-snapshots",
+    "test:ui": "playwright test tests/ui-audit/",
     "test:capability": "playwright test tests/capability/",
     "test:contract": "playwright test tests/contract/",
     "verify:phase1": "tsx tests/config/verify-phase1.ts",

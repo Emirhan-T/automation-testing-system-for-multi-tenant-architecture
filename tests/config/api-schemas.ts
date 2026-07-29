@@ -162,7 +162,7 @@ export function validateSchema<T extends z.ZodTypeAny>(
   if (result.success) {
     return { valid: true, data: result.data }
   }
-  const errors = result.error.errors.map(
+  const errors = result.error.issues.map(
     e => `[${e.path.join('.')}] ${e.message}`
   )
   return { valid: false, errors }

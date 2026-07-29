@@ -2,32 +2,123 @@
   --color-primary: #0B3D91;
   --color-secondary: #0F172A;
   --color-accent: #22D3EE;
-  --color-bg: #0F172A;
+  --color-bg: #081226;
   --color-surface: #16213A;
   --color-text: #E2E8F0;
   --color-text-muted: #94A3B8;
-  --radius: 16px;
-  --font-display: Georgia, serif;
-  --font-body: system-ui, sans-serif;
+  --radius: 10px;
+  --font-display: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
   --grid-columns: 3;
 
+  min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
-  min-height: 100vh;
   font-family: var(--font-body);
 }
 
 .theme1 .site-header {
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
-  padding: 24px 32px;
-  border-bottom: 2px solid var(--color-accent);
+  padding: 0;
+  border-bottom: 1px solid rgb(34 211 238 / 0.42);
+  background: rgb(8 18 40 / 0.94);
+  backdrop-filter: blur(18px);
 }
 
 .theme1 .logo {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
   color: var(--color-accent);
-  letter-spacing: 0.5px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.theme1 .logo-mark {
+  border-radius: 5px;
+  box-shadow: 0 0 24px rgb(34 211 238 / 0.36);
+}
+
+.theme1 .main-nav {
+  border: 1px solid rgb(148 163 184 / 0.15);
+  border-radius: 7px;
+  background: rgb(15 23 42 / 0.76);
+}
+
+.theme1 .main-nav a,
+.theme1 .main-nav a.router-link-active {
+  border-radius: 4px;
+}
+
+.theme1 .main-nav a.router-link-active {
+  background: rgb(34 211 238 / 0.12);
+  color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px rgb(34 211 238 / 0.24);
+}
+
+.theme1 .home-page .hero {
+  min-height: 700px;
+  background:
+    linear-gradient(rgb(34 211 238 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(34 211 238 / 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 82% 22%, rgb(11 61 145 / 0.75), transparent 32%),
+    #081226;
+  background-size: 38px 38px, 38px 38px, auto, auto;
+}
+
+.theme1 .hero__copy h1 {
+  font-size: clamp(3.2rem, 6vw, 6.5rem);
+  font-weight: 850;
+  letter-spacing: -0.075em;
+  text-transform: uppercase;
+}
+
+.theme1 .hero__copy h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-accent);
+}
+
+.theme1 .hero__lead {
+  padding-left: 18px;
+  border-left: 2px solid var(--color-accent);
+}
+
+.theme1 .hero__proof span {
+  padding: 8px 11px;
+  border: 1px solid rgb(34 211 238 / 0.15);
+  border-radius: 5px;
+  background: rgb(34 211 238 / 0.05);
+}
+
+.theme1 .search-panel {
+  position: relative;
+  border: 1px solid rgb(34 211 238 / 0.45);
+  border-radius: 6px;
+  background: rgb(15 28 55 / 0.82);
+  box-shadow: 0 30px 90px rgb(0 0 0 / 0.38), inset 0 0 35px rgb(34 211 238 / 0.035);
+}
+
+.theme1 .search-panel::before {
+  position: absolute;
+  width: 42px;
+  height: 4px;
+  top: -2px;
+  left: 20px;
+  background: var(--color-accent);
+  box-shadow: 0 0 14px var(--color-accent);
+  content: "";
+}
+
+.theme1 .trust-strip {
+  background: #0c1930;
+}
+
+.theme1 .trust-icon {
+  border-radius: 4px;
+}
+
+.theme1 .listings-section .section-heading h2,
+.theme1 .quality-callout h2,
+.theme1 .detail-content h1 {
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .theme1 .results-grid {
@@ -37,23 +128,48 @@
 }
 
 .theme1 .property-card {
-  background: var(--color-surface);
-  border-radius: var(--radius);
-  border: 1px solid #24304F;
   overflow: hidden;
-  transition: transform 0.15s ease;
+  border: 1px solid rgb(34 211 238 / 0.16);
+  border-radius: 6px;
+  background: var(--color-surface);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.theme1 .property-card__image {
+  aspect-ratio: 4 / 3;
+  filter: saturate(0.82);
+}
+
+.theme1 .property-card__meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .theme1 .property-card:hover {
-  transform: translateY(-4px);
+  border-color: rgb(34 211 238 / 0.7);
+  box-shadow: 0 18px 45px rgb(0 0 0 / 0.28);
+  transform: translateY(-6px);
 }
 
 .theme1 .cta-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
   background: var(--color-accent);
   color: var(--color-secondary);
-  border: none;
-  border-radius: var(--radius);
-  padding: 12px 24px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.theme1 .detail-visual {
+  border-radius: 6px;
+  box-shadow: 24px 24px 0 rgb(34 211 238 / 0.08);
+}
+
+@media (max-width: 900px) {
+  .theme1 .results-grid { --grid-columns: 2; }
+}
+
+@media (max-width: 620px) {
+  .theme1 .results-grid { --grid-columns: 1; }
+  .theme1 .home-page .hero { min-height: auto; }
 }

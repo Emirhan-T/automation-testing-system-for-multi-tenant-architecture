@@ -5,6 +5,39 @@ mimari) küçük ölçekli, çalışan bir simülasyonudur. Amaç, önerilen tes
 stratejisinin (capability matrix, data-testid sözleşmesi, davranış-odaklı
 test) gerçek bir kod tabanında geçerli olduğunu kanıtlamaktır.
 
+## Programlama Bilmeyenler İçin: Bu Sistem Ne Yapıyor?
+
+Neuron'u farklı markalara hizmet veren bir dijital emlak vitrini gibi
+düşünebilirsiniz. Aynı altyapı dört farklı markanın renklerini, özelliklerini
+ve görünümünü taşıyor.
+
+UI Quality Center ise üretim bandındaki kalite kontrol noktası gibi çalışır:
+
+1. Aynı sayfayı telefon, tablet, laptop ve masaüstünde açar.
+2. Buton, yazı, kart ve form alanlarının gerçek ölçülerini okur.
+3. Yazı kutuya sığmıyorsa, bileşen ekran dışına taşıyorsa veya dokunma alanı
+   çok küçükse hata verir.
+4. Aynı kontrolleri dört tenant için otomatik tekrarlar.
+
+Tarayıcıda `/ui-quality` sayfasını açarak sistemi görsel ve etkileşimli biçimde
+anlatabilirsiniz. Canlı laboratuvarda buton genişliğini ve yazısını değiştirerek
+taşma kontrolünün nasıl çalıştığını gösterebilirsiniz.
+
+## Matematiksel UI Denetimi
+
+```bash
+npm run test:ui
+```
+
+Bu komut dört tenant, beş ekran boyutu ve üç temel deneyim için toplam 60
+responsive geometri senaryosu çalıştırır. İlk sürüm şu kuralları denetler:
+
+- Sayfanın yatay olarak ekran dışına taşmaması
+- İşaretlenmiş bileşenlerin viewport içinde kalması
+- Yazı ve içeriğin kendisine ayrılan alana sığması
+- Etkileşim alanlarının minimum dokunma boyutunu karşılaması
+- Aynı kontrol grubundaki bağımsız bileşenlerin çakışmaması
+
 ## Kurulum ve Çalıştırma
 
 ```bash

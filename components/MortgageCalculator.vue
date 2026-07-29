@@ -10,6 +10,7 @@ async function calculate() {
   try {
     result.value = await $fetch('/api/calculate-mortgage', {
       method: 'POST',
+      headers: tenantHeaders(),
       body: { price: props.price, deposit: deposit.value }
     })
   } finally {
@@ -26,10 +27,11 @@ async function calculate() {
       <input
         type="number"
         data-testid="calc-deposit"
+        data-ui-audit="interactive"
         v-model.number="deposit"
       />
     </label>
-    <button class="cta-button" data-testid="calc-submit" @click="calculate">
+    <button class="cta-button" data-testid="calc-submit" data-ui-audit="interactive" @click="calculate">
       Hesapla
     </button>
     <p v-if="loading">Hesaplanıyor…</p>
@@ -55,6 +57,7 @@ async function calculate() {
   margin-top: 4px;
   padding: 8px;
   width: 100%;
+  min-height: 44px;
   max-width: 240px;
 }
 </style>
